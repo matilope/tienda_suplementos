@@ -155,7 +155,7 @@ nav ul li {
         left: 50%;
         transform: translateX(-50%);
         text-align: center;
-        top: 95.7px;
+        top: 80px;
         background: white;
         width: 100%;
         padding: 2rem;
@@ -174,16 +174,16 @@ nav ul li {
 
 .banner {
     background: linear-gradient(to bottom, #01c19c, #00856a);
-    height: 100vh;
+    height: 50vh;
     position: relative;
 }
 
 .banner h1 {
     position: absolute;
     right: 14%;
-    top: 50%;
+    top: calc(50% + 48px);
     transform: translateY(-50%);
-    font-size: 4rem;
+    font-size: 3.5rem;
     color: white;
     font-weight: bold;
 }
@@ -191,7 +191,7 @@ nav ul li {
 .banner img {
     position: absolute;
     left: 14%;
-    top: 50%;
+    top: calc(50% + 40px);
     transform: translateY(-50%);
 }
 
@@ -217,11 +217,12 @@ nav ul li {
 
 @media screen and (max-width:860px) {
     .banner h1 {
-        top: 30%;
+        top: calc(30% + 40px);
         transform: translateY(-30%);
         width: 100%;
         text-align: center;
         right: unset;
+        font-size: 3rem;
     }
 
     .banner img {
@@ -230,9 +231,21 @@ nav ul li {
     }
 }
 
-@media screen and (max-width:360px) {
+@media screen and (max-width:460px) {
     .banner h1 {
-        font-size: 3.5rem;
+        font-size: 2.5rem;
+    }
+    .banner img {
+        width: 160px;
+    }
+}
+
+@media screen and (max-width:340px) {
+    .banner h1 {
+        font-size: 2rem;
+    }
+    .banner img {
+        width: 140px;
     }
 }
 

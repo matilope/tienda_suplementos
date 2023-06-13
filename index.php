@@ -25,17 +25,6 @@ if (!in_array($seccion, $seccionesValidas)) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
     <link href="estilos/estilos.css" rel="stylesheet" />
     <link rel="icon" type="image/png" href="imagenes/logo/favicon.png" />
-    <script>
-        // Al tener el nav en position fixed le tengo que descontar los 96px de alto que tiene el nav para que la navegacion por anclas vaya al lugar adecuado y no me tape parte del contenido
-        window.onload = () => {
-            const elementId = document.getElementById(location.hash.split("#")[1]);
-            const position = elementId?.getBoundingClientRect().top;
-            window.scrollTo({
-                top: position - 96,
-                behavior: 'smooth'
-            });
-        };
-    </script>
     <?php
     if ($vista == '404') { ?>
         <meta name="robots" content="noindex, nofollow" />
@@ -45,11 +34,11 @@ if (!in_array($seccion, $seccionesValidas)) {
 <body>
     <nav>
         <div class="container">
-            <a href="?seccion=inicio#main"><img src="imagenes/logo/logo.png" alt="Logo de la página de Nutrición Patria, una tienda de suplementos" /></a>
+            <a href="?seccion=inicio"><img src="imagenes/logo/logo.png" alt="Logo de la página de Nutrición Patria, una tienda de suplementos" /></a>
             <ul>
-                <li><a href="?seccion=productos#productos">Productos</a></li>
-                <li><a href="?seccion=contacto#contacto">Contacto</a></li>
-                <li><a href="?seccion=autor#autor">Alumno</a></li>
+                <li><a href="?seccion=productos">Productos</a></li>
+                <li><a href="?seccion=contacto">Contacto</a></li>
+                <li><a href="?seccion=autor">Alumno</a></li>
             </ul>
             <div class="menu-btn" role="button">
                 <span></span>
