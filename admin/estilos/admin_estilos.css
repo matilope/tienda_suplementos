@@ -1,0 +1,234 @@
+/* GENERAL */
+
+h1,
+h2,
+h3 {
+    font-weight: bold;
+}
+
+
+/* NAV */
+
+.menu-usuario {
+    display: block;
+}
+
+.menu-usuario img {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+}
+
+nav ul {
+    display: none;
+}
+
+nav ul.show {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    top: 80px;
+    background: rgba(255, 255, 255, 0.9);
+    width: 100%;
+    padding: 2rem;
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    animation: slideFromTop 1s;
+}
+
+.menu-btn {
+    display: block;
+}
+
+
+/* INICIO SESIÓN */
+
+input,
+select,
+textarea {
+    display: block;
+    background-color: rgb(235, 235, 235);
+    border: none;
+    margin: 0.25rem 0 1rem;
+    width: 100%;
+    padding: 0.8rem;
+    outline: none;
+}
+
+
+/* MARCAS INGREDIENTES PRESENTACIONES SABORES PANEL */
+
+.rest h1 {
+    font-weight: bold;
+    text-align: center;
+}
+
+.rest {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.table-rest table {
+    width: 800px;
+    margin: auto;
+}
+
+@media screen and (max-width: 991px) {
+    .table-rest table {
+        width: 100%;
+    }
+}
+
+
+/* MARCAS INGREDIENTES PRESENTACIONES SABORES CREAR EDITAR */
+
+.crear-rest {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.crear-rest h1 {
+    font-weight: bold;
+    margin-bottom: 2rem;
+}
+
+.crear-rest form {
+    width: 600px !important;
+}
+
+@media screen and (max-width: 767px) {
+    .crear-rest form {
+        max-width: 100%;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .crear-rest form button {
+        width: 100%;
+    }
+}
+
+
+/* MARCAS INGREDIENTES PRESENTACIONES SABORES ELIMINAR */
+
+.bi-x {
+    font-size: 2rem;
+}
+
+.bi-x:hover {
+    cursor: pointer;
+}
+
+
+/* CREAR EDITAR PRODUCTO */
+
+.crear-editar-productos {
+    padding: 2rem;
+    box-shadow: 1px 1px 4px gray;
+}
+
+.crear-editar-productos h1 {
+    text-align: center;
+}
+
+.div-iflex {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+label:not(.div-iflex label) {
+    font-weight: bold;
+}
+
+select {
+    margin-bottom: 0;
+}
+
+.check-productos {
+    margin: 0;
+    width: 2rem;
+    height: 2rem;
+}
+
+.div-iflex label:not(.div-iflex label:first-child) {
+    margin-right: 1rem;
+}
+
+.crear-editar-productos textarea,
+.editar-categoria {
+    width: 1128px;
+}
+
+.checkdiv {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.contenedor-admin-ap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3rem;
+}
+
+@media screen and (max-width: 1400px) {
+
+    .crear-editar-productos textarea,
+    .editar-categoria {
+        width: 978px;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+
+    .crear-editar-productos textarea,
+    .editar-categoria {
+        width: 828px;
+    }
+}
+
+@media screen and (max-width: 991px) {
+
+    .crear-editar-productos textarea,
+    .editar-categoria {
+        width: 628px;
+    }
+
+    .div-iflex {
+        width: 628px;
+        gap: 1rem;
+    }
+}
+
+@media screen and (max-width: 767px) {
+
+    .crear-editar-productos textarea,
+    .editar-categoria {
+        width: 100%;
+    }
+
+    .contenedor-admin-ap {
+        display: block;
+    }
+
+    .div-iflex {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    .crear-editar-productos button {
+        width: 100%;
+    }
+}

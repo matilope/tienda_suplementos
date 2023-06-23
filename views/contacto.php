@@ -1,13 +1,13 @@
 <?php
 $resultadoFormulario = $_GET ?? null;
 unset($resultadoFormulario['seccion'], $resultadoFormulario['id'], $resultadoFormulario['error']);
-$idProducto = $_GET['id'] ?? null;
 $error = $_GET['error'] ?? null;
+$datos = (new Producto())->getProductos();
 ?>
 
 <?php if ($resultadoFormulario) { ?>
     <div id="respuesta" class="alert alert-success mb-5 mt-0" role="alert">
-        <h2>Tu pedido se ha enviado correctamente</h2>
+        <h2>Tu consulta se ha enviado correctamente</h2>
         <p class="lead">Pronto nos estaremos comunicando con usted</p>
         <ul>
             <?php foreach ($resultadoFormulario as $key => $value) { ?>
@@ -19,16 +19,16 @@ $error = $_GET['error'] ?? null;
 
 <?php if ($error) { ?>
     <div id="respuesta" class="alert alert-danger mb-5 mt-0" role="alert">
-        <h2>Tu pedido no se ha enviado</h2>
+        <h2>Tu consulta no se ha enviado</h2>
         <p class="lead"><?= $error === "vacio" ? 'No puede haber campos vaciós' : ($error === "correo" ? 'El correo no tiene un formato correcto' : 'La fecha no esta compuesta por valores correctos') ?></p>
     </div>
 <?php } ?>
 
 <div id="contacto">
     <div class="col-6">
-        <h2>Formulario de compra</h2>
-        <p class="lead">¿Queres realizar una compra?</p>
-        <form action="./includes/procesamiento_datos.php" method="GET" class="col-6">
+        <h2>Formulario</h2>
+        <p class="lead">Realizá una consulta</p>
+        <form action="./actions/procesamiento_datos.php" method="GET" class="col-6">
             <div>
                 <label for="nombre">Nombre</label>
                 <input type="text" id="nombre" name="nombre" required />
@@ -39,27 +39,18 @@ $error = $_GET['error'] ?? null;
             </div>
             <div>
                 <label for="opciones">Selecciona el producto</label>
-                <select type="text" id="opciones" name="producto" required>
+                <select type="text" id="opciones" name="producto">
+                    <option selected value="No quiero consulta sobre el stock de un producto">No quiero consultar stock de un producto</option>
                     <?php
-                    foreach ($clase->opcionesProductos($clase->productos()) as $producto) {
+                    foreach ($datos as $producto) {
                     ?>
-                        <option <?= $idProducto && $producto === $clase->opcionesProductos([$clase->filtradoId($idProducto)])[0] ? "selected" : '' ?> value="<?= $producto ?>"><?= $producto ?></option>
+                        <option value="<?= $producto->opcionesProductos(); ?>"><?= $producto->opcionesProductos(); ?></option>
                     <?php } ?>
                 </select>
-                <?php
-                if ($idProducto) { ?>
-                    <div class="alert alert-warning" style="width: 100%;" role="alert">
-                        Se seleccionó el suplemento que quieres adquirir.
-                    </div>
-                <?php } ?>
             </div>
             <div>
-                <label for="cantidad">Cantidad</label>
-                <input type="number" id="cantidad" min="1" max="5" name="cantidad" required />
-            </div>
-            <div>
-                <label for="fecha">Fecha de retiro</label>
-                <input type="date" id="fecha" name="fecha" max="2023-06-30" min="2023-05-10" required></input>
+                <label for="consulta">Consulta</label>
+                <textarea name="consulta" id="consulta" cols="30" rows="4" placeholder="Escribí tu consulta.."></textarea>
             </div>
 
             <button class="btn btn-lg mt-4 btn-custom" type="submit">Enviar</button>

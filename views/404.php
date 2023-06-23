@@ -1,3 +1,4 @@
+<div style="height:80px;"></div>
 <main class="container my-5 error">
     <div>
         <i class="bi bi-x-circle-fill"></i>

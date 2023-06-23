@@ -1,10 +1,18 @@
 <?php
-$nombre_funcion = "filtrado" . ucfirst(array_keys($_GET)[1] ?? null);
-$nombre_variable = array_values($_GET)[1] ?? null;
-if (method_exists($clase, $nombre_funcion)) {
-    $datos = $clase->$nombre_funcion($nombre_variable);
+$buscador = $_GET["buscador"] ?? false;
+$marca = $_GET["marca"] ?? false;
+$categoria = $_GET["categoria"] ?? false;
+$precio = $_GET["precio"] ?? false;
+if ($buscador) {
+    $datos = (new Producto())->filtradoBusqueda(strtolower($buscador)) ?? [];
+} else if ($marca) {
+    $datos = (new Producto())->filtradoMarca($marca) ?? [];
+} else if ($categoria) {
+    $datos = (new Producto())->filtradoCategoria($categoria) ?? [];
+} else if ($precio) {
+    $datos = (new Producto())->filtradoPrecio($precio) ?? [];
 } else {
-    $datos = $clase->productos(true);
+    $datos = (new Producto())->getProductos();
 }
 ?>
 
@@ -18,28 +26,31 @@ if (empty($datos)) { ?>
         Intentelo nuevamente.</p>
     <?php
 } else {
-    foreach ($datos as $key => $valores) { ?>
+    foreach ($datos as $valores) { ?>
         <article class="col-sm-12 col-md-6 col-lg-4 p-3">
             <div class="tarjeta">
                 <div class="imagen-contenedor">
-                    <picture>
-                        <source srcset="<?= $valores->getImagenes()[3]; ?>" media="(max-width:768px)" />
-                        <source srcset="<?= $valores->getImagenes()[2]; ?>" media="(max-width:992px)" />
-                        <source srcset="<?= $valores->getImagenes()[1]; ?>" media="(max-width:1200px)" />
-                        <img class="card-img-top" src="<?= $valores->getImagenes()[0]; ?>" alt="<?= $valores->opcionesProductos($datos)[$key]; ?>">
-                    </picture>
+                    <img class="card-img-top" src="catalogo/<?= $valores->getImagen(); ?>" alt="<?= $valores->opcionesProductos(); ?>">
                     <div class="contenedor-marca-peso">
-                        <span><?= $valores->getMarca(); ?></span>
-                        <span><?= $valores->getPeso(); ?></span>
+                        <span><?= $valores->getMarca()->getNombre(); ?></span>
+                        <span><?= $valores->getPresentacion()->getNombre(); ?></span>
                     </div>
                 </div>
                 <div class="tarjeta-cuerpo">
-                    <h3 class="tarjeta-titulo"><?= $valores->getNombre(); ?></h3>
-                    <span class="tarjeta-categoria"><?= $valores->getCategoria(); ?></span>
+                    <h3 class="tarjeta-titulo"><?= $valores->getTitulo(); ?></h3>
+                    <span class="tarjeta-categoria"><?= ucFirst($valores->getCategoria()->getNombre()); ?></span>
+                    <span class="contenedor-s">
+                        <span class="sabores-ingredientes">Sabores:</span>
+                        <?= $valores->getData("getSabores"); ?>
+                    </span>
+                    <span class="contenedor-s">
+                        <span class="sabores-ingredientes">Ingredientes:</span>
+                        <?= $valores->getData("getIngredientes"); ?>
+                    </span>
                     <p class="tarjeta-descripcion lead"><?= $valores->getDescripcion(120); ?></p>
                     <div class="contenedor-precio-btn">
-                        <span class="precio">$<?= $valores->getPrecio(); ?></span>
-                        <a href="?seccion=producto&id=<?= $valores->getId(); ?>#producto" class="btn btn-lg btn-outline-success">Ver más</a>
+                        <span class="precio"><?= "$" . number_format($valores->getPrecio(), 2, ",", "."); ?></span>
+                        <a href="?seccion=producto&id=<?= $valores->getId(); ?>" class="btn btn-lg btn-outline-success">Ver más</a>
                     </div>
                 </div>
             </div>
