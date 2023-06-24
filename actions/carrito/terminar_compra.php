@@ -9,8 +9,8 @@ try {
         "fecha" => date("Y-m-d")
     ];
     (new Carrito())->insert($compra);
+    (new Carrito())->vaciarCarrito();
     header("Location: ../../index.php?seccion=panel_usuario&mensaje=felicidades");
 } catch (Exception $e) {
-    die("Ha ocurrido un error al intentar terminar la compra");
-    header("Location: ../../index.php?seccion=carrito");
+    header("Location: ../../index.php?seccion=inicio_sesion");
 }
