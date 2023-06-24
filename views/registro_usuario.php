@@ -1,5 +1,5 @@
 <div class="inicio-contenedor">
-    <h1>Registrar usuario</h1>
+    <h2>Registrar usuario</h2>
     <div class="sesion">
         <form action="admin/actions/autenticacion/registro_usuario.php?redirect=usuario" method="POST" enctype="multipart/form-data">
             <div>

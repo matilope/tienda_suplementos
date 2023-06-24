@@ -1,8 +1,7 @@
 <?php
 $usuarios = (new Usuario())->getUsuarios();
-$usuarios = [];
 ?>
-<h2>Lista de usuarios</h2>
+<h1>Lista de usuarios</h1>
 <p class="mb-3">Aqui vas a poder ver los usuarios registrados.</p>
 <?php if (!empty($usuarios)) { ?>
     <div class="table-responsive">
@@ -29,5 +28,5 @@ $usuarios = [];
     </div>
 <?php } else { ?>
     <p class="text-danger mb-3">No se hay usuarios registrados</p>
-    <img class="img-fluid" src="imagenes/administracion/bienvenida.png img-bienvenida" alt="Bienvenido al panel de administracion, imagen decorativa" />
+    <img class="img-fluid img-bienvenida" src="../imagenes/administracion/bienvenida.png" alt="Bienvenido al panel de administracion, imagen decorativa" />
 <?php } ?>
