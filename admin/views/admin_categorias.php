@@ -5,6 +5,7 @@ $id = $_GET['id'] ?? false;
 <div class="rest">
     <h1>Administración de Categorias</h1>
     <a href="index.php?seccion=crear/agregar_categoria" class="btn btn-lg btn-primary">Crear categoria</a>
+    <?= (new Alerta())->getAlerta(); ?>
 </div>
 <div class="table-rest table-responsive">
     <table class="table table-bordered table-striped">
@@ -42,7 +43,7 @@ $id = $_GET['id'] ?? false;
                 </div>
                 <div class="modal-footer">
                     <a href="index.php?seccion=admin_categorias" class="btn btn-secondary" role="button" data-dismiss="modal">Cancelar</a>
-                    <a href="actions/eliminar/eliminar_categorias_acc.php?id=<?= $id; ?>" class="btn btn-custom-danger" role="button">Aceptar</a>
+                    <a href="actions/eliminar/eliminar_categoria_acc.php?id=<?= $id; ?>" class="btn btn-custom-danger" role="button">Aceptar</a>
                 </div>
             </div>
         </div>

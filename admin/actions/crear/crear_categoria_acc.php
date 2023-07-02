@@ -7,8 +7,9 @@ try {
     (new Categoria())->insert(
         Utilidades::sacarAcentos($data['categoria'])
     );
-    header('Location: ../../index.php?seccion=admin_categorias');
+    (new Alerta())->crearAlerta('success', "La categoría <b>{$data['categoria']}</b> se creo correctamente");
+    header('Location: ../../?seccion=admin_categorias');
 } catch (Exception $e) {
-    die("Ha ocurrido un error al crear la categoría");
-    header('Location: ../../index.php?seccion=admin_categorias');
+    (new Alerta())->crearAlerta('danger', "La categoría no se pudo crear");
+    header('Location: ../../?seccion=admin_categorias');
 }

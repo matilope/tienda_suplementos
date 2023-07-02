@@ -31,8 +31,9 @@ try {
             $producto->agregarIngredientes(intval($producto_id), $ingrediente_id);
         }
     }
-
-    header('Location: ../../index.php?seccion=admin_productos');
+    (new Alerta())->crearAlerta('success', "El producto <b>{$data['titulo']}</b> se creo correctamente");
+    header('Location: ../../?seccion=admin_productos');
 } catch (Exception $e) {
-    die("Ha ocurrido un error al publicar el producto");
+    (new Alerta())->crearAlerta('danger', "El producto no se pudo crear");
+    header('Location: ../../?seccion=admin_productos');
 }

@@ -5,6 +5,7 @@ $id = $_GET['id'] ?? false;
 <div class="rest">
     <h1>Administración de Productos</h1>
     <a href="index.php?seccion=crear/agregar_producto" class="btn btn-lg btn-primary">Crear producto</a>
+    <?= (new Alerta())->getAlerta(); ?>
 </div>
 <div class="table-responsive">
     <table class="table table-bordered table-striped">

@@ -49,7 +49,10 @@ if (!array_key_exists($seccion, $seccionesValidas)) {
 } else {
     $vista = $seccion;
     if ($seccionesValidas[$seccion]['restringido']) {
-        (new Autenticacion())->verificacion();
+        $checkString = (new Autenticacion())->verificacion();
+        if ($checkString !== 'usuario' && $checkString !== 'superadmin') {
+            header('location: ?seccion=inicio_sesion');
+        }
     }
     $titulo = $seccionesValidas[$seccion]['titulo'];
 }
@@ -82,14 +85,16 @@ if (!array_key_exists($seccion, $seccionesValidas)) {
                 <li><a href="?seccion=productos">Productos</a></li>
                 <li><a href="?seccion=contacto">Contacto</a></li>
                 <li><a href="?seccion=autor">Alumno</a></li>
+                <li><a href="?seccion=carrito"><i class="bi bi-cart"></i></a></li>
                 <?php if ($usuario) { ?>
-                    <?php if ($usuario['rol'] == "superadmin") { ?><li><a href="admin/index.php?seccion=inicio">Administrador</a></li><?php } ?>
+                    <?php if ($usuario['rol'] == "superadmin") { ?>
+                        <li><a href="admin/index.php?seccion=inicio">Administrador</a></li>
+                    <?php } ?>
                     <li><a href="?seccion=panel_usuario">Panel</a></li>
-                    <li><a class="cerrar-sesion" href="admin/actions/autenticacion/cerrar_sesion.php?usuario=true"><i class="bi bi-box-arrow-left"></i> Cerrar sesión</a></li>
+                    <li><a class="cerrar-sesion" href="actions/autenticacion/cerrar_sesion.php"><i class="bi bi-box-arrow-left"></i> Cerrar sesión</a></li>
                 <?php } else { ?>
                     <li><a class="iniciar-sesion" href="?seccion=inicio_sesion"><i class="bi bi-box-arrow-in-right"></i> Iniciar sesión</a></li>
                 <?php } ?>
-                <li><a href="?seccion=carrito"><i class="bi bi-cart"></i></a></li>
             </ul>
             <div class="menu-btn" role="button">
                 <span></span>

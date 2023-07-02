@@ -1,7 +1,7 @@
 <div class="inicio-contenedor">
     <h2>Registrar usuario</h2>
     <div class="sesion">
-        <form action="admin/actions/autenticacion/registro_usuario.php?redirect=usuario" method="POST" enctype="multipart/form-data">
+        <form action="actions/autenticacion/registro_usuario.php" method="POST" enctype="multipart/form-data">
             <div>
                 <label for="nombre">Nombre</label>
                 <input type="text" id="nombre" name="nombre" required />
@@ -22,7 +22,10 @@
                 <label for="avatar">Avatar</label>
                 <input type="file" id="avatar" name="avatar" required />
             </div>
-            <input type="hidden" name="rol" value="usuario" />
+            <div class="form-check form-switch my-2">
+                <label class="form-check-label" for="rol">Administrador</label>
+                <input class="form-check-input" type="checkbox" id="rol" name="rol" />
+            </div>
             <button type="submit" class="btn btn-lg btn-primary">Registrarse</button>
         </form>
     </div>

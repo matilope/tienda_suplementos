@@ -21,13 +21,18 @@ class Autenticacion
                 $datosLogin['rol'] = $datos->getRol();
                 $_SESSION['autenticado'] = $datosLogin;
                 return true;
+            } else {
+                (new Alerta())->crearAlerta('danger', 'La contraseña es incorrecta');
+                return false;
             }
         }
+        (new Alerta())->crearAlerta('danger', 'El usuario no existe');
         return false;
     }
 
     /**
      * Si esta la sesión saca el array de la super global
+     * @return void
      */
     public function cerrarSesion(): void
     {
@@ -37,36 +42,16 @@ class Autenticacion
     }
 
     /**
-     * Si el rol es superadmin devuelve true, en caso de no serlo significa que tiene puesto el rol de 'usuario' y en se caso lo redirigo a los productos
-     * En caso de que no este autenticado puede ser que sea un admin el que quiera entrar entonces lo envío al inicio de sesión
-     * @return ?bool
+     * Verifica el rol
+     * @return string Devuelve el rol si esta autenticado, en caso de que no lo lleva a iniciar sesión
      */
-    public function verificacionAdmin(): ?bool
+    public function verificacion(): string
     {
         $usuario = $_SESSION['autenticado'];
         if (isset($usuario)) {
-            if ($usuario['rol'] == "superadmin") {
-                return true;
-            } else {
-                header('location: ../index.php?seccion=productos');
-                return null;
-            }
+            return $usuario['rol'];
         } else {
-            header('location: index.php?seccion=inicio_sesion');
-        }
-    }
-
-    /**
-     * Cualquier rol tiene acceso, los administradores van a poder entrar al checkout y los usuarios tambien
-     * @return bool
-     */
-    public function verificacion(): bool
-    {
-        $usuario = $_SESSION['autenticado'];
-        if (isset($usuario)) {
-            return true;
-        } else {
-            header('location: index.php?seccion=inicio_sesion');
+            header('location: ?seccion=inicio_sesion');
         }
     }
 }

@@ -4,9 +4,15 @@ require_once "../../../functions/autoload.php";
 $id = $_GET['id'] ?? false;
 
 try {
-    $ingrediente = (new Ingrediente)->get_por_id($id);
-    $ingrediente->delete();
-    header('Location: ../../index.php?seccion=admin_ingredientes');
+    $ingrediente = (new Ingrediente())->get_por_id($id);
+    if ($ingrediente) {
+        $ingrediente->delete();
+        (new Alerta())->crearAlerta('success', "El ingrediente <b>{$ingrediente->getNombre()}</b> se eliminó correctamente");
+    } else {
+        (new Alerta())->crearAlerta('warning', "El ingrediente que intenta eliminar no existe");
+    }
+    header('Location: ../../?seccion=admin_ingredientes');
 } catch (Exception $e) {
-    die("Ha ocurrido un error al intentar eliminar el ingrediente");
+    (new Alerta())->crearAlerta('danger', "El ingrediente no se puede eliminar ya que se esta usando en los productos");
+    header('Location: ../../?seccion=admin_ingredientes');
 }

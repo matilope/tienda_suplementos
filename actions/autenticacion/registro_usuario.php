@@ -1,0 +1,23 @@
+<?php
+require_once "../../functions/autoload.php";
+
+$dataExtra = $_GET['redirect'] ?? false;
+$data = $_POST;
+$file = $_FILES['avatar'];
+
+try {
+    $password = password_hash($data['password'], PASSWORD_DEFAULT);
+    $avatar = (new Imagen())->subirImagen(__DIR__ . "/../../usuarios", $file);
+    (new Usuario())->insert(
+        $data['nombre'],
+        $data['correo'],
+        Utilidades::sacarAcentos($data['usuario']),
+        $password,
+        $avatar,
+        $data['rol'] === 'on' ? 'superadmin' : 'usuario'
+    );
+    header("Location: ../../?seccion=inicio_sesion");
+} catch (Exception $e) {
+    die("Ha ocurrido un error al crear el usuario");
+    header("Location: ../../?seccion=registro_usuario");
+}

@@ -14,7 +14,7 @@ class Compra
         $PDOStatement = $conexion->prepare($query);
         $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
         $PDOStatement->execute();
-        return $PDOStatement->fetchAll() ?? [];
+        return $PDOStatement->fetchAll() ?: [];
     }
 
     /**
@@ -29,6 +29,6 @@ class Compra
         $PDOStatement = $conexion->prepare($query);
         $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
         $PDOStatement->execute([$usuarioId]);
-        return $PDOStatement->fetchAll() ?? [];
+        return $PDOStatement->fetchAll() ?: [];
     }
 }

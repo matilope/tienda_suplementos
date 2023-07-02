@@ -5,10 +5,16 @@ $data = $_POST;
 
 try {
     $marca = (new Marca)->get_por_id($data['id']);
-    $marca->update(
-        Utilidades::sacarAcentos($data['nombre'])
-    );
-    header('Location: ../../index.php?seccion=admin_marcas');
+    if ($marca) {
+        $marca->update(
+            Utilidades::sacarAcentos($data['nombre'])
+        );
+        (new Alerta())->crearAlerta('success', "La marca <b>{$marca->getNombre()}</b> se editó correctamente");
+    } else {
+        (new Alerta())->crearAlerta('warning', "La marca que intenta editar no existe");
+    }
+    header('Location: ../../?seccion=admin_marcas');
 } catch (Exception $e) {
-    die("Ha ocurrido un error al editar la marca");
+    (new Alerta())->crearAlerta('danger', "La marca no se pudo editar");
+    header('Location: ../../?seccion=admin_marcas');
 }

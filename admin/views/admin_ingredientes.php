@@ -5,11 +5,12 @@ $id = $_GET['id'] ?? false;
 <div class="rest">
     <h1>Administración de Ingredientes</h1>
     <a href="index.php?seccion=crear/agregar_ingrediente" class="btn btn-lg btn-primary">Crear ingrediente</a>
+    <?= (new Alerta())->getAlerta(); ?>
 </div>
 <div class="table-rest table-responsive">
     <table class="table table-bordered table-striped">
         <thead>
-        <tr>
+            <tr>
                 <th scope="col" width="20%">Id</th>
                 <th scope="col" width="50%">Nombre</th>
                 <th scope="col" width="30%">Opciones</th>

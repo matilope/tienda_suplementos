@@ -66,8 +66,8 @@ $sabores = (new Sabor())->getSabores();
                     foreach ($sabores as $sabor) {
                     ?>
                         <div class="checkdiv">
-                            <label for="sabor_<?= $sabor->getId() ?>"><?= $sabor->getNombre() ?></label>
                             <input class="check-productos" type="checkbox" name="sabores[]" id="sabor_<?= $sabor->getId() ?>" value="<?= $sabor->getId() ?>" />
+                            <label for="sabor_<?= $sabor->getId() ?>"><?= $sabor->getNombre() ?></label>
                         </div>
                     <?php } ?>
                 </div>
@@ -79,8 +79,8 @@ $sabores = (new Sabor())->getSabores();
                     foreach ($ingredientes as $ingrediente) {
                     ?>
                         <div class="checkdiv">
-                            <label for="ingrediente<?= $ingrediente->getId() ?>"><?= $ingrediente->getNombre() ?></label>
                             <input class="check-productos" type="checkbox" name="ingredientes[]" id="ingrediente<?= $ingrediente->getId() ?>" value="<?= $ingrediente->getId() ?>" />
+                            <label for="ingrediente<?= $ingrediente->getId() ?>"><?= $ingrediente->getNombre() ?></label>
                         </div>
                     <?php } ?>
                 </div>

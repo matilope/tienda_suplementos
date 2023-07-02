@@ -7,8 +7,9 @@ try {
     (new Marca())->insert(
         Utilidades::sacarAcentos($data['nombre'])
     );
-    header('Location: ../../index.php?seccion=admin_marcas');
+    (new Alerta())->crearAlerta('success', "La marca <b>{$data['nombre']}</b> se creo correctamente");
+    header('Location: ../../?seccion=admin_marcas');
 } catch (Exception $e) {
-    die("Ha ocurrido un error al crear la marca");
-    header('Location: ../../index.php?seccion=admin_marcas');
+    (new Alerta())->crearAlerta('danger', "La marca no se pudo crear");
+    header('Location: ../../?seccion=admin_marcas');
 }

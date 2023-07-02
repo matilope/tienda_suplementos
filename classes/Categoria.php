@@ -61,7 +61,7 @@ class Categoria
         $PDOStatement = $conexion->prepare($query);
         $PDOStatement->setFetchMode(PDO::FETCH_CLASS, self::class);
         $PDOStatement->execute();
-        return $PDOStatement->fetchAll() ?? [];
+        return $PDOStatement->fetchAll() ?: [];
     }
 
     /**
@@ -78,7 +78,7 @@ class Categoria
         $PDOStatement->execute(
             [$id]
         );
-        return $PDOStatement->fetch() ?? null;
+        return $PDOStatement->fetch() ?: null;
     }
 
     /**

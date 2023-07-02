@@ -7,8 +7,9 @@ try {
     (new Ingrediente())->insert(
         Utilidades::sacarAcentos($data['ingrediente'])
     );
-    header('Location: ../../index.php?seccion=admin_ingredientes');
+    (new Alerta())->crearAlerta('success', "El ingrediente <b>{$data['ingrediente']}</b> se creo correctamente");
+    header('Location: ../../?seccion=admin_ingredientes');
 } catch (Exception $e) {
-    die("Ha ocurrido un error al crear el ingrediente");
-    header('Location: ../../index.php?seccion=admin_ingredientes');
+    (new Alerta())->crearAlerta('danger', "El ingrediente no se pudo crear");
+    header('Location: ../../?seccion=admin_ingredientes');
 }

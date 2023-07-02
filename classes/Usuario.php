@@ -40,7 +40,7 @@ class Usuario
         $PDOStatement = $conexion->prepare($query);
         $PDOStatement->setFetchMode(PDO::FETCH_CLASS, self::class);
         $PDOStatement->execute();
-        return $PDOStatement->fetchAll() ?? [];
+        return $PDOStatement->fetchAll() ?: [];
     }
 
     /**
@@ -55,7 +55,7 @@ class Usuario
         $PDOStatement = $conexion->prepare($query);
         $PDOStatement->setFetchMode(PDO::FETCH_CLASS, self::class);
         $PDOStatement->execute([$usuario]);
-        return $PDOStatement->fetch() ?? null;
+        return $PDOStatement->fetch() ?: null;
     }
 
     /**
@@ -70,7 +70,7 @@ class Usuario
         $PDOStatement = $conexion->prepare($query);
         $PDOStatement->setFetchMode(PDO::FETCH_CLASS, self::class);
         $PDOStatement->execute([$id]);
-        return $PDOStatement->fetch() ?? null;
+        return $PDOStatement->fetch() ?: null;
     }
 
     /**

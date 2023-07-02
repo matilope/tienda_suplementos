@@ -5,10 +5,16 @@ $data = $_POST;
 
 try {
     $ingrediente = (new Ingrediente)->get_por_id($data['id']);
-    $ingrediente->update(
-        Utilidades::sacarAcentos($data['ingrediente'])
-    );
-    header('Location: ../../index.php?seccion=admin_ingredientes');
+    if ($ingrediente) {
+        $ingrediente->update(
+            Utilidades::sacarAcentos($data['ingrediente'])
+        );
+        (new Alerta())->crearAlerta('success', "El ingrediente <b>{$ingrediente->getNombre()}</b> se editó correctamente");
+    } else {
+        (new Alerta())->crearAlerta('warning', "El ingrediente que intenta editar no existe");
+    }
+    header('Location: ../../?seccion=admin_ingredientes');
 } catch (Exception $e) {
-    die("Ha ocurrido un error al editar el ingrediente");
+    (new Alerta())->crearAlerta('danger', "El ingrediente no se pudo editar");
+    header('Location: ../../?seccion=admin_ingredientes');
 }

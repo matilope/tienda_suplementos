@@ -8,7 +8,16 @@ try {
     $categoria->update(
         Utilidades::sacarAcentos($data['categoria'])
     );
-    header('Location: ../../index.php?seccion=admin_categorias');
+    if ($categoria) {
+        $categoria->update(
+            Utilidades::sacarAcentos($data['categoria'])
+        );
+        (new Alerta())->crearAlerta('success', "La categoría <b>{$categoria->getNombre()}</b> se editó correctamente");
+    } else {
+        (new Alerta())->crearAlerta('warning', "La categoría que intenta editar no existe");
+    }
+    header('Location: ../../?seccion=admin_categorias');
 } catch (Exception $e) {
-    die("Ha ocurrido un error al editar la categoria");
+    (new Alerta())->crearAlerta('danger', "La categoría no se pudo editar");
+    header('Location: ../../?seccion=admin_categorias');
 }

@@ -7,8 +7,9 @@ try {
     (new Presentacion())->insert(
         Utilidades::sacarAcentos($data['presentacion'])
     );
-    header('Location: ../../index.php?seccion=admin_presentaciones');
+    (new Alerta())->crearAlerta('success', "La presentación <b>{$data['presentacion']}</b> se creo correctamente");
+    header('Location: ../../?seccion=admin_presentaciones');
 } catch (Exception $e) {
-    die("Ha ocurrido un error al crear la presentación");
-    header('Location: ../../index.php?seccion=admin_presentaciones');
+    (new Alerta())->crearAlerta('danger', "La presentación no se pudo crear");
+    header('Location: ../../?seccion=admin_presentaciones');
 }

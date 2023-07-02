@@ -1,19 +1,17 @@
 <?php
-$buscador = $_GET["buscador"] ?? false;
+$buscador = $_GET["busqueda"] ?? false;
 $marca = $_GET["marca"] ?? false;
 $categoria = $_GET["categoria"] ?? false;
 $precio = $_GET["precio"] ?? false;
-if ($buscador) {
-    $datos = (new Producto())->filtradoBusqueda(strtolower($buscador)) ?? [];
-} else if ($marca) {
-    $datos = (new Producto())->filtradoMarca($marca) ?? [];
-} else if ($categoria) {
-    $datos = (new Producto())->filtradoCategoria($categoria) ?? [];
-} else if ($precio) {
-    $datos = (new Producto())->filtradoPrecio($precio) ?? [];
+
+$metodo = "filtrado".ucFirst(array_keys($_GET)[1] ?? null);
+
+if(method_exists('Producto', $metodo)) {
+    $datos = (new Producto())->$metodo(end($_GET));
 } else {
     $datos = (new Producto())->getProductos();
 }
+
 ?>
 
 <?php require_once "filtros.php"; ?>

@@ -7,8 +7,9 @@ try {
     (new Sabor())->insert(
         Utilidades::sacarAcentos($data['sabor'])
     );
-    header('Location: ../../index.php?seccion=admin_sabores');
+    (new Alerta())->crearAlerta('success', "El sabor <b>{$data['sabor']}</b> se creo correctamente");
+    header('Location: ../../?seccion=admin_sabores');
 } catch (Exception $e) {
-    die("Ha ocurrido un error al crear la marca");
-    header('Location: ../../index.php?seccion=admin_sabores');
+    (new Alerta())->crearAlerta('danger', "El sabor no se pudo crear");
+    header('Location: ../../?seccion=admin_sabores');
 }

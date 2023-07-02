@@ -1,7 +1,6 @@
 <?php
 $resultadoFormulario = $_GET ?? null;
-unset($resultadoFormulario['seccion'], $resultadoFormulario['id'], $resultadoFormulario['error']);
-$error = $_GET['error'] ?? null;
+unset($resultadoFormulario['seccion']);
 $datos = (new Producto())->getProductos();
 ?>
 
@@ -15,15 +14,9 @@ $datos = (new Producto())->getProductos();
             <?php } ?>
         </ul>
     </div>
-<?php } ?>
-
-<?php if ($error) { ?>
-    <div id="respuesta" class="alert alert-danger mb-5 mt-0" role="alert">
-        <h2>Tu consulta no se ha enviado</h2>
-        <p class="lead"><?= $error === "vacio" ? 'No puede haber campos vaciós' : ($error === "correo" ? 'El correo no tiene un formato correcto' : 'La fecha no esta compuesta por valores correctos') ?></p>
-    </div>
-<?php } ?>
-
+<?php }
+echo (new Alerta())->getAlerta();
+?>
 <div id="contacto">
     <div class="col-6">
         <h2>Formulario</h2>

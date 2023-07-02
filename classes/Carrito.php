@@ -22,9 +22,6 @@ class Carrito
         foreach ($this->getCarrito() as $llave => $valores) {
             $producto_id = $llave;
             $sabor = is_array($valores['sabor']) ? (new Sabor())->get_por_id($valores['sabor'][0])->getNombre() : $valores['sabor'];
-            echo "<pre>";
-            print_r($sabor);
-            echo "</pre>";
             $precio = $valores['precio'];
             $cantidad = $valores['cantidad'];
             if (isset($agregados[$producto_id])) {

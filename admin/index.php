@@ -2,14 +2,6 @@
 require_once "../functions/autoload.php";
 
 $seccionesValidas = [
-    "inicio_sesion" => [
-        "titulo" => "Inicio de sesión",
-        "restringido" => false
-    ],
-    "registro_usuario" => [
-        "titulo" => "Registro de usuario",
-        "restringido" => false
-    ],
     "inicio" => [
         "titulo" => "Panel de administración",
         "restringido" => true
@@ -101,7 +93,10 @@ if (!array_key_exists($seccion, $seccionesValidas)) {
 } else {
     $vista = $seccion;
     if ($seccionesValidas[$seccion]['restringido']) {
-        (new Autenticacion())->verificacionAdmin();
+        $checkString = (new Autenticacion())->verificacion();
+        if ($checkString !== 'superadmin') {
+            header('location: ../?seccion=inicio_sesion');
+        }
     }
     $titulo = $seccionesValidas[$seccion]['titulo'];
 }
@@ -138,7 +133,8 @@ if (!array_key_exists($seccion, $seccionesValidas)) {
                     <li><a href="?seccion=admin_sabores">Admin sabores</a></li>
                     <li><a href="?seccion=admin_ingredientes">Admin ingredientes</a></li>
                     <li><a href="?seccion=usuarios_registrados">Usuarios registrados</a></li>
-                    <li><a class="cerrar-sesion" href="actions/autenticacion/cerrar_sesion.php"><i class="bi bi-box-arrow-left"></i> Cerrar sesión</a></li>
+                    <li><a href="../?seccion=inicio">Página web</a></li>
+                    <li><a class="cerrar-sesion" href="../actions/autenticacion/cerrar_sesion.php"><i class="bi bi-box-arrow-left"></i> Cerrar sesión</a></li>
                 <?php } else { ?>
                     <li><a class="iniciar-sesion" href="?seccion=inicio_sesion"><i class="bi bi-box-arrow-in-right"></i> Iniciar sesión</a></li>
                 <?php } ?>

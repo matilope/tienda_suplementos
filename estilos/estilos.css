@@ -21,9 +21,9 @@ h2 {
     font-weight: bold;
 }
 
-h1,
-h2,
-h3 {
+h1::first-letter,
+h2::first-letter,
+h3::first-letter {
     text-transform: capitalize;
 }
 
@@ -50,6 +50,10 @@ ul {
 .btn,
 .alert {
     border-radius: 0;
+}
+
+.alert .btn-close {
+    margin: 0;
 }
 
 
@@ -466,6 +470,17 @@ textarea:focus:invalid {
     border: 1px solid red;
 }
 
+.form-switch {
+    padding-left: 0;
+}
+
+.form-check-input[type="checkbox"] {
+    padding: 0.25rem;
+    width: 3.5em;
+    height: 1.5rem;
+    margin: 0 0.5rem 0 0;
+}
+
 #contacto ul {
     display: flex;
     flex-direction: column;
@@ -716,7 +731,7 @@ textarea:focus:invalid {
 /* PRODUCTO*/
 
 .aviso {
-    width: 600px;
+    width: 100%;
 }
 
 #producto {
