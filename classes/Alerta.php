@@ -18,15 +18,6 @@ class Alerta
     }
 
     /**
-     * Vacia la alerta para que no aparezca en otros lugares
-     * @return void 
-     */
-    public function limpiarAlerta(): void
-    {
-        unset($_SESSION['alerta']);
-    }
-
-    /**
      * @return string|null devuelve un string de la alerta o null en caso de no haber
      */
     public function getAlerta(): ?string
@@ -34,7 +25,7 @@ class Alerta
         $alerta = $_SESSION['alerta'] ?? [];
         if (!empty($alerta)) {
             $mensaje = $this->crearHtml($alerta);
-            $this->limpiarAlerta();
+            unset($_SESSION['alerta']);
             return $mensaje;
         } else {
             return null;
