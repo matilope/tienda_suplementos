@@ -1,5 +1,5 @@
 <div class="inicio-contenedor">
-    <h2>Iniciar sesión</h2>
+    <h2 class="mb-3">Iniciar sesión</h2>
     <div class="sesion">
         <form action="actions/autenticacion/inicio_sesion.php" method="POST">
             <div>

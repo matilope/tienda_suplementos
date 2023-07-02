@@ -2,6 +2,7 @@
 
 class Imagen
 {
+
     /**
      * Devuelve el nombre del archivo junto a su extensión o tira una excepción
      * @return string
@@ -10,9 +11,8 @@ class Imagen
     {
         if (!empty($archivo['tmp_name'])) {
             $nombreArchivo = explode(".", $archivo['name']);
-            $index = count($nombreArchivo);
-            $extension = $nombreArchivo[$index - 1];
-            $filename = uniqid($nombreArchivo[$index - 2], true) . ".$extension";
+            $extension = array_pop($nombreArchivo);
+            $filename = uniqid(array_pop($nombreArchivo), true) . ".$extension";
             $fileUpload = move_uploaded_file($archivo['tmp_name'], "$directorio/$filename");
             if (!$fileUpload) {
                 throw new Exception("Ha ocurrido un error al subir la imagen");

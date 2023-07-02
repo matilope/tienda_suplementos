@@ -9,7 +9,7 @@ if ($autenticado) {
     if($rol === "superadmin") {
         header("Location: ../../admin");
     } else {
-        header("Location: ../../?seccion=productos");
+        header("Location: ../../?seccion=panel_usuario");
     }
 } else {
     (new Autenticacion())->cerrarSesion();

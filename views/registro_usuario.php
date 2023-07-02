@@ -1,5 +1,6 @@
 <div class="inicio-contenedor">
-    <h2>Registrar usuario</h2>
+    <h2 class="mb-3">Registrar usuario</h2>
+    <?= (new Alerta())->getAlerta(); ?>
     <div class="sesion">
         <form action="actions/autenticacion/registro_usuario.php" method="POST" enctype="multipart/form-data">
             <div>

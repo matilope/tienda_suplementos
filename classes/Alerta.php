@@ -23,7 +23,7 @@ class Alerta
      */
     public function limpiarAlerta(): void
     {
-        $_SESSION['alerta'] = [];
+        unset($_SESSION['alerta']);
     }
 
     /**
@@ -31,7 +31,7 @@ class Alerta
      */
     public function getAlerta(): ?string
     {
-        $alerta = $_SESSION['alerta'];
+        $alerta = $_SESSION['alerta'] ?? [];
         if (!empty($alerta)) {
             $mensaje = $this->crearHtml($alerta);
             $this->limpiarAlerta();
