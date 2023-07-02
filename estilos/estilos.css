@@ -786,6 +786,7 @@ textarea:focus:invalid {
     font-size: 1.25rem;
     border: 2px solid #005d85;
     padding: 0.5rem;
+    margin-top: 1rem;
 }
 
 #producto div:first-child {
@@ -802,6 +803,12 @@ textarea:focus:invalid {
 #producto div:last-child {
     width: 60%;
     margin: 3rem 0;
+}
+
+@media screen and (min-width:768px) {
+    #producto div:last-child {
+        margin-left: 2rem;
+    }
 }
 
 @media screen and (max-width:991px) {

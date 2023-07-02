@@ -13,7 +13,7 @@ $carrito = (new Carrito())->getCarrito();
 <?php } else { ?>
     <article class="col-12 my-5" id="producto">
         <div>
-            <img src="catalogo/<?= $producto->getImagen(); ?>" alt="<?= $producto->opcionesProductos(); ?>">
+            <img class="img-fluid" src="catalogo/<?= $producto->getImagen(); ?>" alt="<?= $producto->opcionesProductos(); ?>">
             <span><?= $producto->getPresentacion()->getNombre(); ?></span>
         </div>
         <div>
