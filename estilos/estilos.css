@@ -49,7 +49,7 @@ ul {
 
 .btn,
 .alert {
-    border-radius: 0;
+    border-radius: .25rem;
 }
 
 .alert .btn-close {
@@ -128,7 +128,7 @@ nav a:hover {
 .menu-btn span::before,
 .menu-btn span::after {
     background: #01c19c;
-    border-radius: 3px;
+    border-radius: .25rem;
     content: '';
     position: absolute;
     width: 40px;
@@ -458,6 +458,7 @@ textarea {
     width: 100%;
     padding: 0.8rem;
     outline: none;
+    border-radius: .25rem;
 }
 
 input:focus:valid,
@@ -572,6 +573,7 @@ textarea:focus:invalid {
     background-image: url('../imagenes/animacion/splash.png');
     background-size: contain;
     animation: splash 5s ease-out infinite;
+    border-radius: .25rem;
 }
 
 #autor div {
@@ -655,6 +657,7 @@ textarea:focus:invalid {
 .imagen-contenedor {
     background-color: rgb(226, 226, 226);
     padding: 1rem;
+    border-radius: .25rem;
 }
 
 .titulo-productos {
@@ -693,6 +696,7 @@ textarea:focus:invalid {
     font-size: 1.25rem;
     border: 2px solid #005d85;
     padding: 0.5rem;
+    border-radius: .25rem;
 }
 
 .sabores-ingredientes {
@@ -710,6 +714,25 @@ textarea:focus:invalid {
     font-size: 2rem;
     color: #00856a;
     margin-top: 0.5rem;
+}
+
+.paginacion {
+    position: unset;
+    padding: unset;
+    box-shadow: unset;
+    z-index: unset;
+    background: unset;
+    display: flex;
+    justify-content: center;
+    margin: 4rem 0 2rem 0;
+}
+
+.paginacion ul {
+    gap: 0;
+}
+
+.paginacion ul li {
+    display: list-item;
 }
 
 @media screen and (max-width:360px) {
@@ -741,6 +764,7 @@ textarea:focus:invalid {
     color: #4d4d4d;
     padding: 2rem;
     position: relative;
+    border-radius: .25rem;
 }
 
 #producto h2 {
@@ -787,6 +811,7 @@ textarea:focus:invalid {
     border: 2px solid #005d85;
     padding: 0.5rem;
     margin-top: 1rem;
+    border-radius: .25rem;
 }
 
 #producto div:first-child {

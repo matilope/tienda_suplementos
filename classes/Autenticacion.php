@@ -43,15 +43,14 @@ class Autenticacion
 
     /**
      * Verifica el rol
-     * @return string Devuelve el rol si esta autenticado, en caso de que no lo lleva a iniciar sesión
+     * @return ?string Devuelve el rol si esta autenticado, en caso de que no devuelve null
      */
-    public function verificacion(): string
+    public function verificacion(): ?string
     {
         $usuario = $_SESSION['autenticado'];
         if (isset($usuario)) {
             return $usuario['rol'];
-        } else {
-            header('location: ?seccion=inicio_sesion');
         }
+        return null;
     }
 }

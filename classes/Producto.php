@@ -169,20 +169,41 @@ class Producto
 
   /**
    * Devuelve un array con todos los productos.
+   * @param int $offset el numero mínimo de resultados
+   * @param int $limit el numero máximo de resultados
    * @return Producto[]
    */
-  public function getProductos(): array
+  public function getProductos(int $offset, int $limit): array
   {
     $productos = [];
     $conexion = Conexion::getConexion();
-    $query = "SELECT productos.*, GROUP_CONCAT(DISTINCT ingredientes_por_producto.ingrediente_id) AS ingredientes, GROUP_CONCAT(DISTINCT sabores_por_producto.sabor_id) AS sabores FROM productos LEFT JOIN sabores_por_producto ON sabores_por_producto.producto_id = productos.id LEFT JOIN ingredientes_por_producto ON ingredientes_por_producto.producto_id = productos.id GROUP BY productos.id;";
+    $query = "SELECT productos.*, GROUP_CONCAT(DISTINCT ingredientes_por_producto.ingrediente_id) AS ingredientes, GROUP_CONCAT(DISTINCT sabores_por_producto.sabor_id) AS sabores FROM productos LEFT JOIN sabores_por_producto ON sabores_por_producto.producto_id = productos.id LEFT JOIN ingredientes_por_producto ON ingredientes_por_producto.producto_id = productos.id GROUP BY productos.id LIMIT ? OFFSET ?;";
     $PDOStatement = $conexion->prepare($query);
     $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
+    $PDOStatement->bindParam(1, $limit, PDO::PARAM_INT);
+    $PDOStatement->bindParam(2, $offset, PDO::PARAM_INT);
     $PDOStatement->execute();
     while ($resultado = $PDOStatement->fetch()) {
       array_push($productos, $this->crearProducto($resultado));
     }
     return $productos;
+  }
+
+  /**
+   * Devuelve la cantidad total de productos
+   * @return ?int
+   */
+  public function getTotal(): ?int
+  {
+    $conexion = Conexion::getConexion();
+    $query = "SELECT COUNT(*) AS total FROM productos;";
+    $PDOStatement = $conexion->prepare($query);
+    $PDOStatement->execute();
+    $resultado = $PDOStatement->fetch();
+    if ($resultado) {
+      return $resultado['total'];
+    }
+    return null;
   }
 
   /**
@@ -226,21 +247,21 @@ class Producto
 
   /**
    * Devuelve un array de tipo Producto en caso de encontrar coincidencias, si no, devuelve un array vacio
-   * @param int $nombre Recibe como parametro un string.
+   * @param string $nombre Recibe como parametro un string.
    * @return Producto[]
    * */
   public function filtradoBusqueda(string $nombre): array
   {
     $filtrado = [];
     $conexion = Conexion::getConexion();
-    $query = "SELECT productos.*, GROUP_CONCAT(DISTINCT ingredientes_por_producto.ingrediente_id) AS ingredientes, GROUP_CONCAT(DISTINCT sabores_por_producto.sabor_id) AS sabores FROM productos LEFT JOIN ingredientes_por_producto ON ingredientes_por_producto.producto_id = productos.id LEFT JOIN sabores_por_producto ON sabores_por_producto.producto_id = productos.id WHERE LOWER(titulo) LIKE '%$nombre%' OR LOWER(descripcion) LIKE '%$nombre%' GROUP BY productos.id;";
+    $query = "SELECT productos.*, GROUP_CONCAT(DISTINCT ingredientes_por_producto.ingrediente_id) AS ingredientes, GROUP_CONCAT(DISTINCT sabores_por_producto.sabor_id) AS sabores FROM productos LEFT JOIN ingredientes_por_producto ON ingredientes_por_producto.producto_id = productos.id LEFT JOIN sabores_por_producto ON sabores_por_producto.producto_id = productos.id WHERE LOWER(titulo) LIKE CONCAT('%', ?, '%') OR LOWER(descripcion) LIKE CONCAT('%', ?, '%') GROUP BY productos.id;";
     $PDOStatement = $conexion->prepare($query);
     $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
-    $PDOStatement->execute();
+    $PDOStatement->execute([
+      $nombre,
+      $nombre
+    ]);
     while ($resultado = $PDOStatement->fetch()) {
-      if (empty($resultado['id'])) {
-        return [];
-      }
       array_push($filtrado, $this->crearProducto($resultado));
     }
     return $filtrado;
@@ -275,13 +296,8 @@ class Producto
     $query = "SELECT productos.*, GROUP_CONCAT(DISTINCT ingredientes_por_producto.ingrediente_id) AS ingredientes, GROUP_CONCAT(DISTINCT sabores_por_producto.sabor_id) AS sabores FROM productos LEFT JOIN ingredientes_por_producto ON ingredientes_por_producto.producto_id = productos.id LEFT JOIN sabores_por_producto ON sabores_por_producto.producto_id = productos.id WHERE categoria_id = ? GROUP BY productos.id;";
     $PDOStatement = $conexion->prepare($query);
     $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
-    $PDOStatement->execute(
-      [$categoria_id]
-    );
+    $PDOStatement->execute([$categoria_id]);
     while ($resultado = $PDOStatement->fetch()) {
-      if (empty($resultado['id'])) {
-        return [];
-      }
       array_push($filtrado, $this->crearProducto($resultado));
     }
     return $filtrado;
@@ -294,6 +310,14 @@ class Producto
    * */
   public function filtradoPrecio(string $orden): array
   {
+    switch (strtoupper($orden)) {
+      case 'ASC':
+        break;
+      case 'DESC':
+        break;
+      default:
+        $orden = 'ASC';
+    }
     $filtrado = [];
     $conexion = Conexion::getConexion();
     $query = "SELECT productos.*, GROUP_CONCAT(DISTINCT ingredientes_por_producto.ingrediente_id) AS ingredientes, GROUP_CONCAT(DISTINCT sabores_por_producto.sabor_id) AS sabores FROM productos LEFT JOIN ingredientes_por_producto ON ingredientes_por_producto.producto_id = productos.id LEFT JOIN sabores_por_producto ON sabores_por_producto.producto_id = productos.id GROUP BY productos.id ORDER BY precio $orden;";
@@ -301,9 +325,6 @@ class Producto
     $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
     $PDOStatement->execute();
     while ($resultado = $PDOStatement->fetch()) {
-      if (empty($resultado['id'])) {
-        return [];
-      }
       array_push($filtrado, $this->crearProducto($resultado));
     }
     return $filtrado;
@@ -321,13 +342,8 @@ class Producto
     $query = "SELECT productos.*, GROUP_CONCAT(DISTINCT ingredientes_por_producto.ingrediente_id) AS ingredientes, GROUP_CONCAT(DISTINCT sabores_por_producto.sabor_id) AS sabores FROM productos LEFT JOIN ingredientes_por_producto ON ingredientes_por_producto.producto_id = productos.id LEFT JOIN sabores_por_producto ON sabores_por_producto.producto_id = productos.id WHERE marca_id = ? GROUP BY productos.id;";
     $PDOStatement = $conexion->prepare($query);
     $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
-    $PDOStatement->execute(
-      [$marca_id]
-    );
+    $PDOStatement->execute([$marca_id]);
     while ($resultado = $PDOStatement->fetch()) {
-      if (empty($resultado['id'])) {
-        return [];
-      }
       array_push($filtrado, $this->crearProducto($resultado));
     }
     return $filtrado;

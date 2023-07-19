@@ -3,13 +3,20 @@ $buscador = $_GET["busqueda"] ?? false;
 $marca = $_GET["marca"] ?? false;
 $categoria = $_GET["categoria"] ?? false;
 $precio = $_GET["precio"] ?? false;
+$pagina = $_GET["pagina"] ?? 1;
 
-$metodo = "filtrado".ucFirst(array_keys($_GET)[1] ?? null);
+$metodo = "filtrado" . ucFirst(array_keys($_GET)[1] ?? null);
 
-if(method_exists('Producto', $metodo)) {
+$maximo = 6;
+$offset = ($pagina - 1) * $maximo;
+$limit = $maximo * $pagina;
+
+if (method_exists('Producto', $metodo)) {
     $datos = (new Producto())->$metodo(end($_GET));
+    $total = null;
 } else {
-    $datos = (new Producto())->getProductos();
+    $datos = (new Producto())->getProductos($offset, $limit);
+    $total = (new Producto())->getTotal();
 }
 
 ?>
@@ -53,5 +60,14 @@ if (empty($datos)) { ?>
                 </div>
             </div>
         </article>
-<?php }
-} ?>
+    <?php }
+}
+if ($total > 6) { ?>
+    <nav class="paginacion" aria-label="Paginación de productos">
+        <ul class="pagination pagination-lg">
+            <?php for ($i = 1; $i <= ceil($total / 6); $i++) { ?>
+                <li class="page-item"><a class="page-link" href="?seccion=productos&pagina=<?= $i ?>"><?= $i ?></a></li>
+            <?php } ?>
+        </ul>
+    </nav>
+<?php } ?>

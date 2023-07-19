@@ -93,8 +93,8 @@ if (!array_key_exists($seccion, $seccionesValidas)) {
 } else {
     $vista = $seccion;
     if ($seccionesValidas[$seccion]['restringido']) {
-        $checkString = (new Autenticacion())->verificacion();
-        if ($checkString !== 'superadmin') {
+        $checkRol = (new Autenticacion())->verificacion();
+        if ($checkRol !== 'superadmin') {
             header('location: ../?seccion=inicio_sesion');
         }
     }
@@ -121,7 +121,7 @@ if (!array_key_exists($seccion, $seccionesValidas)) {
 
 <body>
 
-    <nav>
+    <nav class="nav">
         <div class="container">
             <a href="?seccion=inicio"><img src="../imagenes/logo/logo.png" alt="Logo de la página de Nutrición Patria, una tienda de suplementos" /></a>
             <ul>

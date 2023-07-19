@@ -1,5 +1,4 @@
 <?php
-$productos = (new Producto())->getProductos();
 $marcas = (new Marca())->getMarcas();
 $categorias = (new Categoria())->getCategorias();
 ?>
