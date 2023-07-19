@@ -94,7 +94,7 @@ class Producto
   }
 
   /**
-   * Crea el vinculo entre un producto y un sabor, agregando los valores en la tabla pivot
+   * Crea el vínculo entre un producto y un sabor, agregando los valores en la tabla pivot
    * @param int $producto_id
    * @param int $sabor_id
    * @return void
@@ -116,7 +116,7 @@ class Producto
   }
 
   /**
-   * Elimina el vinculo entre un producto y un sabor, los saca de la tabla pivot
+   * Elimina el vínculo entre un producto y un sabor, los saca de la tabla pivot
    * @return void
    */
   public function eliminarSabores(): void
@@ -131,7 +131,7 @@ class Producto
   }
 
   /**
-   * Crea el vinculo entre un producto y un ingrediente, agregando los valores en la tabla pivot
+   * Crea el vínculo entre un producto y un ingrediente, agregando los valores en la tabla pivot
    * @param int $producto_id
    * @param int $ingrediente_id
    * @return void
@@ -153,7 +153,7 @@ class Producto
   }
 
   /**
-   * Elimina el vinculo entre un producto y un ingrediente, los saca de la tabla pivot
+   * Elimina el vínculo entre un producto y un ingrediente, los saca de la tabla pivot
    * @return void
    */
   public function eliminarIngredientes(): void
@@ -169,8 +169,8 @@ class Producto
 
   /**
    * Devuelve un array con todos los productos.
-   * @param int $offset el numero mínimo de resultados
-   * @param int $limit el numero máximo de resultados
+   * @param int $offset el número en el que se empieza a buscar resultados
+   * @param int $limit el número máximo de resultados
    * @return Producto[]
    */
   public function getProductos(int $offset, int $limit): array
@@ -190,7 +190,7 @@ class Producto
   }
 
   /**
-   * Devuelve la cantidad total de productos
+   * Devuelve la cantidad total de productos o null
    * @return ?int
    */
   public function getTotal(): ?int
