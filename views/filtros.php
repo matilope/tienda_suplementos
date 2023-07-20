@@ -42,8 +42,8 @@ $categorias = (new Categoria())->getCategorias();
                     Precio
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="precio">
-                    <li><a class="dropdown-item" href="?seccion=productos&precio=ASC">Menor</a></li>
-                    <li><a class="dropdown-item" href="?seccion=productos&precio=DESC">Mayor</a></li>
+                    <li><a class="dropdown-item" href="?seccion=productos&pagina=1&precio=ASC">Menor</a></li>
+                    <li><a class="dropdown-item" href="?seccion=productos&pagina=1&precio=DESC">Mayor</a></li>
                 </ul>
             </div>
         </div>

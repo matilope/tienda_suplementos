@@ -39,7 +39,7 @@ class Alerta
   private function crearHtml(array $alerta): string
   {
     $html = "<div class='alert alert-{$alerta[0]['tipo']} alert-dismissible fade show' role='alert'>";
-    $html .= $alerta[0]['mensaje'];
+    $html .= "<p>{$alerta[0]['mensaje']}</p>";
     $html .= "<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>";
     $html .= "</div>";
     return $html;

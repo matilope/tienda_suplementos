@@ -15,6 +15,6 @@ try {
     }
     header('Location: ../../?seccion=admin_presentaciones');
 } catch (Exception $e) {
-    (new Alerta())->crearAlerta('danger', "La presentación no se pudo editar");
+    (new Alerta())->crearAlerta('danger', "La presentación no se pudo editar.<br /> {$e->getMessage()}");
     header('Location: ../../?seccion=admin_presentaciones');
 }

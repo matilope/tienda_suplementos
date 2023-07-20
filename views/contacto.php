@@ -1,7 +1,7 @@
 <?php
 $resultadoFormulario = $_GET ?? null;
 unset($resultadoFormulario['seccion']);
-$datos = (new Producto())->getProductos();
+$datos = (new Producto())->getProductos(0, PHP_INT_MAX);
 ?>
 
 <?php if ($resultadoFormulario) { ?>

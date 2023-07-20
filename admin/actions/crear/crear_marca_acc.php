@@ -10,6 +10,6 @@ try {
     (new Alerta())->crearAlerta('success', "La marca <b>{$data['nombre']}</b> se creo correctamente");
     header('Location: ../../?seccion=admin_marcas');
 } catch (Exception $e) {
-    (new Alerta())->crearAlerta('danger', "La marca no se pudo crear");
+    (new Alerta())->crearAlerta('danger', "La marca no se pudo crear.<br /> {$e->getMessage()}");
     header('Location: ../../?seccion=admin_marcas');
 }

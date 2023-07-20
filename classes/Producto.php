@@ -306,11 +306,13 @@ class Producto
   /**
    * Devuelve un array de tipo Producto en un orden menor o mayor en cuanto al precio.
    * @param string $orden Recibe como parametro un string. Los valores que debe recibir el parametro es "ASC" o otro valor distinto, en este ultimo caso, te lo va a ordenar de mayor a menor.
+   * @param int $offset el número en el que se empieza a buscar resultados
+   * @param int $limit el número máximo de resultados 
    * @return Producto[]
    * */
-  public function filtradoPrecio(string $orden): array
+  public function filtradoPrecio(string $orden, int $offset, int $limit): array
   {
-    switch (strtoupper($orden)) {
+    switch ($orden) {
       case 'ASC':
         break;
       case 'DESC':
@@ -320,9 +322,11 @@ class Producto
     }
     $filtrado = [];
     $conexion = Conexion::getConexion();
-    $query = "SELECT productos.*, GROUP_CONCAT(DISTINCT ingredientes_por_producto.ingrediente_id) AS ingredientes, GROUP_CONCAT(DISTINCT sabores_por_producto.sabor_id) AS sabores FROM productos LEFT JOIN ingredientes_por_producto ON ingredientes_por_producto.producto_id = productos.id LEFT JOIN sabores_por_producto ON sabores_por_producto.producto_id = productos.id GROUP BY productos.id ORDER BY precio $orden;";
+    $query = "SELECT productos.*, GROUP_CONCAT(DISTINCT ingredientes_por_producto.ingrediente_id) AS ingredientes, GROUP_CONCAT(DISTINCT sabores_por_producto.sabor_id) AS sabores FROM productos LEFT JOIN ingredientes_por_producto ON ingredientes_por_producto.producto_id = productos.id LEFT JOIN sabores_por_producto ON sabores_por_producto.producto_id = productos.id GROUP BY productos.id ORDER BY precio $orden LIMIT ? OFFSET ?;";
     $PDOStatement = $conexion->prepare($query);
     $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
+    $PDOStatement->bindParam(1, $limit, PDO::PARAM_INT);
+    $PDOStatement->bindParam(2, $offset, PDO::PARAM_INT);
     $PDOStatement->execute();
     while ($resultado = $PDOStatement->fetch()) {
       array_push($filtrado, $this->crearProducto($resultado));
@@ -422,9 +426,9 @@ class Producto
   public function getDescripcion(float $cantidad, bool $full = false): string
   {
     if (strlen($this->descripcion) > $cantidad && !$full) {
-      return substr($this->descripcion, 0, $cantidad) . '...';
+      return substr(ucfirst($this->descripcion), 0, $cantidad) . '...';
     }
-    return $this->descripcion;
+    return ucfirst($this->descripcion);
   }
 
   /**

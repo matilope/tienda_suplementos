@@ -15,6 +15,6 @@ try {
     }
     header('Location: ../../?seccion=admin_marcas');
 } catch (Exception $e) {
-    (new Alerta())->crearAlerta('danger', "La marca no se pudo editar");
+    (new Alerta())->crearAlerta('danger', "La marca no se pudo editar.<br /> {$e->getMessage()}");
     header('Location: ../../?seccion=admin_marcas');
 }

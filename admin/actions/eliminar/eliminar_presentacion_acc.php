@@ -13,6 +13,6 @@ try {
     }
     header('Location: ../../?seccion=admin_presentaciones');
 } catch (Exception $e) {
-    (new Alerta())->crearAlerta('danger', "La presentación no se puede eliminar ya que se esta usando en los productos");
+    (new Alerta())->crearAlerta('danger', "La presentación no se puede eliminar ya que se esta usando en los productos.<br /> {$e->getMessage()}");
     header('Location: ../../?seccion=admin_presentaciones');
 }

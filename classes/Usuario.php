@@ -35,7 +35,7 @@ class Usuario
   public function getUsuarios(): array
   {
     $conexion = Conexion::getConexion();
-    $query = "SELECT * FROM usuarios";
+    $query = "SELECT * FROM usuarios ORDER BY usuarios.id DESC;";
     $PDOStatement = $conexion->prepare($query);
     $PDOStatement->setFetchMode(PDO::FETCH_CLASS, self::class);
     $PDOStatement->execute();

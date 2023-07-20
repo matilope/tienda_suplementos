@@ -12,8 +12,18 @@ class Imagen
     if (!empty($archivo['tmp_name'])) {
       $nombreArchivo = explode(".", $archivo['name']);
       $extension = array_pop($nombreArchivo);
+      $extension = $extension === "jpg" ? "jpeg" : $extension;
       $filename = uniqid(array_pop($nombreArchivo), true) . ".$extension";
-      $fileUpload = move_uploaded_file($archivo['tmp_name'], "$directorio/$filename");
+      if (!function_exists("imagecreatefrom$extension")) {
+        throw new Exception("La extensión es inválida, sólo se aceptan jpeg, jpg, png, gif, webp, avif, bmp, xbm");
+      }
+      $img_og = "imagecreatefrom$extension"($archivo['tmp_name']);
+      $ancho_og = imagesx($img_og);
+      $alto_og = imagesy($img_og);
+      $alto_auto = floor($alto_og * (376 / $ancho_og));
+      $gdImage = imagecreatetruecolor(376, $alto_auto);
+      imagecopyresized($gdImage, $img_og, 0, 0, 0, 0, 376, $alto_auto, $ancho_og, $alto_og);
+      $fileUpload = "image$extension"($gdImage, "$directorio/$filename");
       if (!$fileUpload) {
         throw new Exception("Ha ocurrido un error al subir la imagen");
       } else {

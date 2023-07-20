@@ -5,20 +5,22 @@ $categoria = $_GET["categoria"] ?? false;
 $precio = $_GET["precio"] ?? false;
 $pagina = $_GET["pagina"] ?? 1;
 
-$metodo = "filtrado" . ucFirst(array_keys($_GET)[1] ?? null);
-
-$maximo = 6;
-$offset = ($pagina - 1) * $maximo;
-$limit = $maximo * $pagina;
+$metodo = "filtrado" . ucFirst(array_key_last($_GET) ?? null);
+$limit = 6;
+$offset = ($pagina - 1) * $limit;
 
 if (method_exists('Producto', $metodo)) {
-    $datos = (new Producto())->$metodo(end($_GET));
-    $total = null;
+    if (!$precio) {
+        $datos = (new Producto())->$metodo(end($_GET));
+        $total = null;
+    } else {
+        $datos = (new Producto())->filtradoPrecio($precio, $offset, $limit);
+        $total = (new Producto())->getTotal();
+    }
 } else {
     $datos = (new Producto())->getProductos($offset, $limit);
     $total = (new Producto())->getTotal();
 }
-
 ?>
 
 <?php require_once "filtros.php"; ?>
@@ -48,10 +50,6 @@ if (empty($datos)) { ?>
                         <span class="sabores-ingredientes">Sabores:</span>
                         <?= $valores->getData("getSabores"); ?>
                     </span>
-                    <span class="contenedor-s">
-                        <span class="sabores-ingredientes">Ingredientes:</span>
-                        <?= $valores->getData("getIngredientes"); ?>
-                    </span>
                     <p class="tarjeta-descripcion lead"><?= $valores->getDescripcion(120); ?></p>
                     <div class="contenedor-precio-btn">
                         <span class="precio"><?= "$" . number_format($valores->getPrecio(), 2, ",", "."); ?></span>
@@ -62,11 +60,11 @@ if (empty($datos)) { ?>
         </article>
     <?php }
 }
-if ($total > 6) { ?>
+if ($total > $limit) { ?>
     <nav class="paginacion" aria-label="Paginación de productos">
         <ul class="pagination pagination-lg">
-            <?php for ($i = 1; $i <= ceil($total / 6); $i++) { ?>
-                <li class="page-item"><a class="page-link" href="?seccion=productos&pagina=<?= $i ?>"><?= $i ?></a></li>
+            <?php for ($i = 1; $i <= ceil($total / $limit); $i++) { ?>
+                <li class="page-item"><a class="page-link" href="?seccion=productos&pagina=<?= $i ?><?= $precio ? '&precio=' . $precio : '' ?>"><?= $i ?></a></li>
             <?php } ?>
         </ul>
     </nav>

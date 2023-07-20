@@ -10,6 +10,6 @@ try {
     (new Alerta())->crearAlerta('success', "La presentación <b>{$data['presentacion']}</b> se creo correctamente");
     header('Location: ../../?seccion=admin_presentaciones');
 } catch (Exception $e) {
-    (new Alerta())->crearAlerta('danger', "La presentación no se pudo crear");
+    (new Alerta())->crearAlerta('danger', "La presentación no se pudo crear.<br /> {$e->getMessage()}");
     header('Location: ../../?seccion=admin_presentaciones');
 }

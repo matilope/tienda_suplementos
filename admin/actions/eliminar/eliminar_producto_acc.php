@@ -16,6 +16,6 @@ try {
     }
     header('Location: ../../?seccion=admin_productos');
 } catch (Exception $e) {
-    (new Alerta())->crearAlerta('danger', "Ha ocurrido un error al intentar al eliminar el producto");
+    (new Alerta())->crearAlerta('danger', "Ha ocurrido un error al intentar al eliminar el producto.<br /> {$e->getMessage()}");
     header('Location: ../../?seccion=admin_productos');
 }

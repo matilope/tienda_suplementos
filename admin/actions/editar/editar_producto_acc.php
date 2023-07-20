@@ -47,6 +47,6 @@ try {
     }
     header('Location: ../../?seccion=admin_productos');
 } catch (Exception $e) {
-    (new Alerta())->crearAlerta('danger', "El producto no se pudo editar");
+    (new Alerta())->crearAlerta('danger', "El producto no se pudo editar.<br /> {$e->getMessage()}");
     header('Location: ../../?seccion=admin_productos');
 }

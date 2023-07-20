@@ -10,6 +10,6 @@ try {
     (new Alerta())->crearAlerta('success', "El sabor <b>{$data['sabor']}</b> se creo correctamente");
     header('Location: ../../?seccion=admin_sabores');
 } catch (Exception $e) {
-    (new Alerta())->crearAlerta('danger', "El sabor no se pudo crear");
+    (new Alerta())->crearAlerta('danger', "El sabor no se pudo crear.<br /> {$e->getMessage()}");
     header('Location: ../../?seccion=admin_sabores');
 }

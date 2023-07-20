@@ -1,6 +1,10 @@
 <?php
-$productos = (new Producto())->getProductos();
 $id = $_GET['id'] ?? false;
+$pagina = $_GET["pagina"] ?? 1;
+$limit = 10;
+$offset = ($pagina - 1) * $limit;
+$productos = (new Producto())->getProductos($offset, $limit);
+$total = (new Producto())->getTotal();
 ?>
 <div class="rest">
     <h1>Administración de Productos</h1>
@@ -59,4 +63,13 @@ $id = $_GET['id'] ?? false;
         </div>
     </div>
     <div class="modal-backdrop fade show"></div>
+<?php }
+if ($total > $limit) { ?>
+    <nav class="paginacion" aria-label="Paginación de productos">
+        <ul class="pagination pagination-lg">
+            <?php for ($i = 1; $i <= ceil($total / $limit); $i++) { ?>
+                <li class="page-item"><a class="page-link" href="?seccion=admin_productos&pagina=<?= $i ?>"><?= $i ?></a></li>
+            <?php } ?>
+        </ul>
+    </nav>
 <?php } ?>

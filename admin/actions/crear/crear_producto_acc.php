@@ -34,6 +34,6 @@ try {
     (new Alerta())->crearAlerta('success', "El producto <b>{$data['titulo']}</b> se creo correctamente");
     header('Location: ../../?seccion=admin_productos');
 } catch (Exception $e) {
-    (new Alerta())->crearAlerta('danger', "El producto no se pudo crear");
+    (new Alerta())->crearAlerta('danger', "El producto no se pudo crear.<br /> {$e->getMessage()}");
     header('Location: ../../?seccion=admin_productos');
 }

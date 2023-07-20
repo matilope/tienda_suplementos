@@ -628,7 +628,7 @@ textarea:focus:invalid {
 
 #autor li img {
     width: 250px;
-    border-radius: 0 0 5% 5%;
+    border-radius: .25rem;
     height: 250px;
     object-fit: cover;
     border: 4px solid #163b72;
@@ -660,6 +660,11 @@ textarea:focus:invalid {
     border-radius: .25rem;
 }
 
+.imagen-contenedor img {
+    max-height: 376px;
+    object-fit: cover;
+}
+
 .titulo-productos {
     font-size: 2.5rem;
 }
@@ -688,6 +693,7 @@ textarea:focus:invalid {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top: 0.5rem;
 }
 
 .contenedor-marca-peso span:last-child {
@@ -765,6 +771,11 @@ textarea:focus:invalid {
     padding: 2rem;
     position: relative;
     border-radius: .25rem;
+}
+
+#producto img {
+    max-height: 376px;
+    object-fit: cover;
 }
 
 #producto h2 {
