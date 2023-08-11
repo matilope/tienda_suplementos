@@ -22,6 +22,9 @@ class Imagen
       $alto_og = imagesy($img_og);
       $alto_auto = floor($alto_og * (376 / $ancho_og));
       $gdImage = imagecreatetruecolor(376, $alto_auto);
+      $transparent = imagecolorallocatealpha($gdImage, 0, 0, 0, 127);
+      imagefill($gdImage, 0, 0, $transparent);
+      imagesavealpha($gdImage, true);
       imagecopyresized($gdImage, $img_og, 0, 0, 0, 0, 376, $alto_auto, $ancho_og, $alto_og);
       $fileUpload = "image$extension"($gdImage, "$directorio/$filename");
       if (!$fileUpload) {

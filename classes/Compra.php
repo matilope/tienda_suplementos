@@ -10,7 +10,7 @@ class Compra
   public function getCompras(): array
   {
     $conexion = Conexion::getConexion();
-    $query = "SELECT compras.*, detalle_compra.compra_id as compra_id, detalle_compra.producto_id as producto_id, detalle_compra.precio as precio, detalle_compra.cantidad as cantidad, detalle_compra.sabor as sabor FROM compras LEFT JOIN detalle_compra ON compra_id = compras.id ORDER BY compras.id DESC;";
+    $query = "SELECT compras.*, detalle_compra.compra_id, detalle_compra.producto_id, detalle_compra.precio, detalle_compra.cantidad, detalle_compra.sabor FROM compras LEFT JOIN detalle_compra ON compra_id = compras.id ORDER BY compras.id DESC;";
     $PDOStatement = $conexion->prepare($query);
     $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
     $PDOStatement->execute();
@@ -25,7 +25,7 @@ class Compra
   public function getComprasUsuario(int $usuarioId): array
   {
     $conexion = Conexion::getConexion();
-    $query = "SELECT compras.*, detalle_compra.compra_id as compra_id, detalle_compra.producto_id as producto_id, detalle_compra.precio as precio, detalle_compra.cantidad as cantidad, detalle_compra.sabor as sabor FROM compras LEFT JOIN detalle_compra ON compra_id = compras.id WHERE usuario_id = ?;";
+    $query = "SELECT compras.*, detalle_compra.compra_id, detalle_compra.producto_id, detalle_compra.precio, detalle_compra.cantidad, detalle_compra.sabor FROM compras LEFT JOIN detalle_compra ON compra_id = compras.id WHERE usuario_id = ?;";
     $PDOStatement = $conexion->prepare($query);
     $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
     $PDOStatement->execute([$usuarioId]);
